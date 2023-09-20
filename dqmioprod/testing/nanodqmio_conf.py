@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: step2 --conditions 130X_dataRun3_Prompt_v3 --data --datatier DQMIO --era Run3 --eventcontent DQM --nStreams 2 --nThreads 8 --process RECO --scenario pp --step RAW2DIGI,L1Reco,RECO,DQM --customise_commands=process.DQMStore.saveByLumi = cms.untracked.bool(True) --procModifiers=dqmPerLSsaving --number 100 --filein file:/eos/user/f/fsimone/auto_DQM/CMSSW_13_0_6/src/raw_example.root --fileout file:test2_nanodqmio.root --python_filename nanodqmio_conf.py
+# with command line options: step2 --conditions 130X_dataRun3_Prompt_v3 --data --datatier DQMIO --era Run3 --eventcontent DQM --nStreams 2 --nThreads 8 --process RECO --scenario pp --step RAW2DIGI,L1Reco,RECO,DQM --customise_commands=process.DQMStore.saveByLumi = cms.untracked.bool(True) --procModifiers=dqmPerLSsaving --number 10 --filein file:/eos/user/f/fsimone/auto_DQM/24302289-cfa7-49a3-8de5-c97e37c91089.root --fileout file:test.root --python_filename nanodqmio_conf.py
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -25,13 +25,13 @@ process.load('DQMOffline.Configuration.DQMOffline_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100),
+    input = cms.untracked.int32(10),
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:/eos/user/f/fsimone/auto_DQM/CMSSW_13_0_6/src/raw_example.root'),
+    fileNames = cms.untracked.vstring('file:/eos/user/f/fsimone/auto_DQM/24302289-cfa7-49a3-8de5-c97e37c91089.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -69,7 +69,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('step2 nevts:100'),
+    annotation = cms.untracked.string('step2 nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -81,7 +81,7 @@ process.DQMoutput = cms.OutputModule("DQMRootOutputModule",
         dataTier = cms.untracked.string('DQMIO'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:test2_nanodqmio.root'),
+    fileName = cms.untracked.string('file:test.root'),
     outputCommands = process.DQMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
